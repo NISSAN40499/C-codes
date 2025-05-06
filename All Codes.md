@@ -438,3 +438,32 @@ WHERE X.RELEASE_YEAR >2000 AND Y.PROFIT > 500
 ORDER BY Y.PROFIT DESC;
 ```
 
+### A business manager decided that any imdb_rating that is plus or minus one standard deviation away from an average (which is 7.95) is considered an outlier. Write a query that prints these outliers.
+```
+SELECT * 
+FROM MOVIES 
+WHERE IMDB_RATING > 7.95 + (
+    SELECT STDDEV(IMDB_RATING) 
+    FROM MOVIES
+)
+OR IMDB_RATING < 7.95 - (
+    SELECT STDDEV(IMDB_RATING) 
+    FROM MOVIES
+);
+```
+### SELECT 3 OLDEST AND 3 YOUNGEST ACTORS FROM ACTORS TABLE
+```
+(
+    SELECT NAME, BIRTH_YEAR 
+    FROM ACTORS 
+    ORDER BY BIRTH_YEAR ASC 
+    LIMIT 3
+)
+UNION
+(
+    SELECT NAME, BIRTH_YEAR 
+    FROM ACTORS 
+    ORDER BY BIRTH_YEAR DESC 
+    LIMIT 3
+);
+```
