@@ -416,3 +416,25 @@ JOIN Y ON
 X.MOVIE_ID = Y.MOVIE_ID
 WHERE X.PCT_PROFIT >= 500;
 ```
+
+
+### Select all Hollywood movies released after the year 2000 that made more than 500 million $ profit or more profit in desc order.
+```
+WITH X AS (
+SELECT * 
+FROM MOVIES
+WHERE INDUSTRY = "HOLLYWOOD"
+),
+Y AS (
+SELECT *,
+	(REVENUE - BUDGET) AS PROFIT
+FROM FINANCIALS
+)
+SELECT *
+	FROM X
+JOIN Y ON
+X.MOVIE_ID = Y.MOVIE_ID
+WHERE X.RELEASE_YEAR >2000 AND Y.PROFIT > 500
+ORDER BY Y.PROFIT DESC;
+```
+
